@@ -25,24 +25,26 @@ let ryb = [
   "#C21460"
 ];
 
+let differenceColor = 10;
+
 function drawCube(lenght, x, y, colour) {
   if (lenght > 4) {
     counter++;
     let colourNumber = Math.floor(Math.random() * ryb.length);
-    colour = changeHue(ryb[colourNumber], randomIntFromInterval(-10, 10));
-    colour = pSBC((0.5 - Math.random()) / 5, colour);
+    colour = changeHue(ryb[colourNumber], randomIntFromInterval(-differenceColor, differenceColor));
+    colour = pSBC((0.5 - Math.random())/2, colour);
     c = color(colour);
     //
 
 
     //
-    c.setAlpha(255 - lenght / 2);
+    c.setAlpha(255 - lenght / 1.2);
     fill(c);
     noStroke();
     drawingContext.shadowOffsetX = 0;
     drawingContext.shadowOffsetY = 0;
     drawingContext.shadowBlur = lenght / 8;
-    drawingContext.shadowColor = "rgba(0,0,0,0)";
+    drawingContext.shadowColor = "rgba(0,0,0,0.25)";
     //blendMode(OVERLAY );
     drawShape(x, y, lenght,c);
     //square(x, y, lenght);
@@ -50,30 +52,37 @@ function drawCube(lenght, x, y, colour) {
     //drawShape(x, y, lenght);
 
     colourNumber = (colourNumber + 6) % 12;
-    colour = changeHue(ryb[colourNumber], randomIntFromInterval(-10, 10));
-    colour = pSBC((0.5 - Math.random()) / 5, colour);
+    colour = changeHue(ryb[colourNumber], randomIntFromInterval(-differenceColor, differenceColor));
+    colour = pSBC((0.5 - Math.random()) / 2, colour);
     c = color(colour);
     c.setAlpha(255 - lenght / 4);
     fill(c)
     noStroke();
-    drawingContext.shadowBlur = lenght / 8;
-    drawingContext.shadowColor = "rgba(255,255,255,0)";
-    //blendMode(DIFFERENCE );
-    square(x + lenght / 4, y + lenght / 4, lenght / 2);
+    //drawingContext.shadowOffsetX = lenght / 8;
+    //drawingContext.shadowOffsetY = lenght / 8;
+    //drawingContext.shadowBlur = lenght / 8;
+    //drawingContext.shadowColor = "rgba(0,0,0,1)";
+    //blendMode(BLEND );
 
+    extra = randomIntFromInterval(-lenght/4, lenght/4);
+
+    square(x + lenght / 4, y + lenght / 4, lenght/2);
+    
+    
+    //blendMode(DIFFERENCE );
     let randomPlaceArray = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
     shuffleArray(randomPlaceArray);
 
-    let atimes = 1;
+    let atimes = 2;
 
     if (lenght > 8) {
-      atimes = 2;
-    }
-    if (lenght > 16) {
       atimes = 3;
     }
-    if (lenght > 32) {
+    if (lenght > 16) {
       atimes = 4;
+    }
+    if (lenght > 32) {
+      atimes = 5;
     }
 
     for (let a = 0; a < atimes; a++) {
